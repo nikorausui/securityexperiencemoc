@@ -1,0 +1,16 @@
+ * Debugger is active!
+ * Debugger PIN: 278-083-240
+Traceback (most recent call last):
+  File "/app/ctf.py", line 66, in <module>
+    app.run(host='0.0.0.0', port=5001, debug=True)  # ポート 5001 で起動
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 662, in run
+    run_simple(t.cast(str, host), port, self, **options)
+  File "/usr/local/lib/python3.9/site-packages/werkzeug/serving.py", line 1093, in run_simple
+    srv = make_server(
+  File "/usr/local/lib/python3.9/site-packages/werkzeug/serving.py", line 930, in make_server
+    return ThreadedWSGIServer(
+  File "/usr/local/lib/python3.9/site-packages/werkzeug/serving.py", line 792, in __init__
+    self.socket = socket.fromfd(fd, address_family, socket.SOCK_STREAM)
+  File "/usr/local/lib/python3.9/socket.py", line 544, in fromfd
+    nfd = dup(fd)
+OSError: [Errno 9] Bad file descriptor

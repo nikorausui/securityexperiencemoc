@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>辞書型攻撃シミュレーション</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        /* 全画面の状態 */
+        .full-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Twitter風のログインページ */
+        .login-page {
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .login-page h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #1da1f2;
+        }
+
+        .login-page input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-page button {
+            padding: 10px;
+            width: 100%;
+            background-color: #1da1f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-page button:hover {
+            background-color: #1a91da;
+        }
+
+        /* ハッキングモードボタン */
+        .hacking-mode-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .home-Btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .home-Btn1 {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hacking-mode-btn:hover {
+            background-color: #e5533d;
+        }
+
+        /* 分割画面の状態 */
+        .split-screen {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 左側パネル */
+        .left-panel {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 上部パネル: 3割 (灰色背景) */
+        .top-panel {
+            background-color: #333;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 3;
+            color: white;
+        }
+        
+
+        .top-panel h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #1da1f2;
+        }
+
+        .top-panel label {
+            font-weight: bold;
+        }
+
+        .top-panel select, .top-panel button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .top-panel button {
+            background-color: #1da1f2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .top-panel button:hover {
+            background-color: #1a91da;
+        }
+
+        /* 下部パネル: Ubuntu風のターミナル 7割 */
+        .bottom-panel {
+            background-color: #300a24;
+            color: #0f0;
+            flex: 7;
+            padding: 0px;
+            height: 100%;
+            overflow-y: auto;
+            font-family: monospace;
+            position: relative;
+        }
+
+        /* ターミナルのパス表示とタブ表示 */
+        .terminal-header {
+            background-color: #2e2e2e;
+            padding: 5px;
+            color: #ddd;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .terminal-header .menu {
+            display: flex;
+            gap: 15px;
+        }
+
+        .terminal-header .path {
+            color: #0f0;
+        }
+
+        /* 右側パネル */
+        .right-panel {
+            width: 60%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .right-panel h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #1da1f2;
+        }
+
+        .right-panel label {
+            font-weight: bold;
+        }
+
+        .right-panel input {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .right-panel button {
+            padding: 10px;
+            background-color: #1da1f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .right-panel button:hover {
+            background-color: #1a91da;
+        }
+
+        /* 分割線 */
+        .divider {
+            width: 4px;
+            background-color: #ccc;
+        }
+
+        .flag {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #0f0;
+            animation: flash 1s infinite;
+        }
+
+        .flag.show {
+            display: block;
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 全画面表示モード -->
+    <div class="full-screen" id="fullScreenMode">
+        <!-- Twitter風のログインページ -->
+        <div class="login-page">
+            <h2>ログインページ</h2>
+            <form id="loginForm">
+                <input type="text" id="username" name="username" placeholder="ユーザー名" required>
+                <input type="password" id="password" name="password" placeholder="パスワード" required>
+                <button type="submit">ログイン</button>
+            </form>
+        </div>
+
+        <!-- ハッキングモードボタン -->
+        <button class="hacking-mode-btn" id="hackingModeBtn">ハッキングモード</button>
+        <button class="home-Btn" id="homeBtn">Home</button>
+    </div>
+
+    <!-- 分割画面モード -->
+    <div class="split-screen" id="splitScreenMode" style="display: none;">
+        <!-- 左側パネル -->
+        <div class="left-panel">
+            <!-- 上半分: モダンUI (3割) -->
+             
+            <div class="top-panel">
+                <h2>辞書型攻撃</h2>
+                <label for="usernameDict">ユーザー名辞書を選択:</label>
+                <select id="usernameDict">
+                    <option value="1">ユーザー名辞書1</option>
+                    <option value="2">ユーザー名辞書2</option>
+                </select>
+                <br><br>
+                <label for="passwordDict">パスワード辞書を選択:</label>
+                <select id="passwordDict">
+                    <option value="1">パスワード辞書1</option>
+                    <option value="2">パスワード辞書2</option>
+                </select>
+                <br><br>
+                <button id="startAttackBtn">攻撃開始</button>
+                <button id="stopAttackBtn" style="display:none;">攻撃停止</button> <!-- 停止ボタン -->
+            </div>
+
+            <!-- 下半分: Ubuntu風ターミナル (7割) -->
+            <div class="bottom-panel" id="terminalOutput">
+                <!-- ターミナル風のヘッダー -->
+                 
+                <div class="terminal-header">
+                    <div class="menu">
+                        <span>File</span>
+                        <span>Edit</span>
+                        <span>View</span>
+                        <span>Preferences</span>
+                    </div>
+                    <div class="path">
+                        /home/user/
+                    </div>
+                </div>
+                <!-- ログがここに表示される -->
+                <div id="logContent"></div>
+            </div>
+        </div>
+
+        <!-- 分割線 -->
+        <div class="divider"></div>
+
+        <!-- 右側パネル -->
+        <div class="right-panel">
+            <button class="home-Btn1" id="homeBtn1">Home</button>
+            <h2>ログインページ</h2>
+            <form id="loginForm2">
+                <label for="username">ユーザー名:</label>
+                <input type="text" id="username2" name="username" placeholder="ユーザー名" required>
+                <label for="password">パスワード:</label>
+                <input type="password" id="password2" name="password" placeholder="パスワード" required>
+                <button type="submit">ログイン</button>
+            </form>
+            <div id="flag" class="flag">
+                <h1>FLAG: CTF{you_hacked_the_system}</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fullScreenMode = document.getElementById("fullScreenMode");
+        const splitScreenMode = document.getElementById("splitScreenMode");
+        const hackingModeBtn = document.getElementById("hackingModeBtn");
+        const terminalOutput = document.getElementById("terminalOutput");
+        const startAttackBtn = document.getElementById("startAttackBtn");
+        const loginForm2 = document.getElementById("loginForm2");
+        const flagDiv = document.getElementById("flag");
+
+        // ハッキングモードへ切り替え
+        hackingModeBtn.addEventListener("click", () => {
+            fullScreenMode.style.display = "none";
+            splitScreenMode.style.display = "flex";
+        });
+        const homeBtn = document.getElementById("homeBtn");
+        homeBtn.addEventListener("click", () => {
+            window.location.href = "http://localhost:5000"; // 戻りたいURLを指定
+        });
+        const homeBtn1 = document.getElementById("homeBtn1");
+        homeBtn1.addEventListener("click", () => {
+            window.location.href = "http://localhost:5000"; // 戻りたいURLを指定
+        });
+        // 辞書型攻撃開始
+        startAttackBtn.addEventListener("click", () => {
+            const usernameDict = document.getElementById("usernameDict").value;
+            const passwordDict = document.getElementById("passwordDict").value;
+
+            fetch('/start_attack', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username_dict: usernameDict, password_dict: passwordDict })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                updateLogs();
+            });
+        });
+
+        // ログをリアルタイムで更新
+        function updateLogs() {
+            fetch('/logs')
+                .then(response => response.json())
+                .then(data => {
+                const logContent = document.getElementById('logContent');
+                logContent.innerHTML = data.logs.join('<br>'); // ログ部分のみ更新
+                if (!data.logs.some(log => log.includes("Success"))) {
+                    setTimeout(updateLogs, 1000); // 1秒ごとに更新
+                }
+            });
+        }
+
+        // ログイン処理
+        loginForm2.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const username = document.getElementById("username2").value;
+            const password = document.getElementById("password2").value;
+
+            if (username === "admin" && password === "admin123") {
+                flagDiv.classList.add("show");
+            } else {
+                alert("ログイン失敗");
+            }
+        });
+    </script>
+</body>
+</html>

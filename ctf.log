@@ -1,0 +1,27 @@
+ * Serving Flask app 'ctf'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 539-797-078
+127.0.0.1 - - [08/Jan/2025 01:28:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:55] "POST /start_attack HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:55] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:56] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:57] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:28:58] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:00] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:01] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:02] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:03] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:04] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:05] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:07] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:08] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:09] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:10] "GET /logs HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jan/2025 01:29:11] "GET /logs HTTP/1.1" 200 -

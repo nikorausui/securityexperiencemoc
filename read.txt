@@ -1,0 +1,3 @@
+source aaa/bin/activate
+
+streamlit run test.py

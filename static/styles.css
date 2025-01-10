@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    height: 80%;
+}
+
+.left-panel, .right-panel {
+    width: 50%;
+    padding: 20px;
+}
+
+.left-panel {
+    background-color: #000;
+    color: #0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.terminal {
+    background-color: #111;
+    border: 2px solid #0f0;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.right-panel {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0d8adf;
+}
+
+.flag {
+    display: none;
+    font-size: 24px;
+    color: #0f0;
+    margin-top: 20px;
+    animation: flash 1s infinite;
+}
+
+.flag.show {
+    display: block;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
